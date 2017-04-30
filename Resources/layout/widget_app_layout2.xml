@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- ウィジェット用のレイアウト定義ファイル -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget2"
+	android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true">
+<!--　レイアウトがRelativeLayoutの場合、文字サイズを30spにしても
+	ボタンビューなくなったりしなかったけど、LinearLayoutだとTextViewしか表示されなくなる　-->
+	<TextView
+        android:id="@+id/Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffff0000" />
+	<!--
+        android:layout_marginTop="14dip"
+        android:layout_marginBottom="1dip" 
+		android:textSize="30sp"
+        android:ellipsize="end"
+        android:singleLine="true"
+-->
+	<ImageButton
+        android:id="@+id/TestButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/widget_button" />
+<!-- 自動でうまく収めてくれないみたいで、このレイアウトではButtonビューは
+	多分場所が足りないみたいで表示されない -->
+	<Button
+        android:id="@+id/TestButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/widget_button" />
+
+</LinearLayout>

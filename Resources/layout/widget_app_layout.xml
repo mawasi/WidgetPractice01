@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- ウィジェット用のレイアウト定義ファイル -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true">
+	<TextView
+        android:id="@+id/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dip"
+        android:layout_marginBottom="1dip"
+        android:includeFontPadding="false"
+        android:ellipsize="end"
+		android:textSize="30sp" />
+<!--
+        android:singleLine="true"
+-->
+	<ImageButton
+        android:id="@+id/TestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/widget_button" />
+
+</RelativeLayout>
