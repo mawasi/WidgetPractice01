@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,46 +14,67 @@ using Android.Widget;
 namespace WidgetPractice01
 {
 	/// <summary>
-	/// ƒEƒBƒWƒFƒbƒg‚Ìƒrƒ…[‚ÌXV‚ğs‚¤ƒNƒ‰ƒX
-	/// ƒEƒBƒWƒFƒbƒgÀ‘•‚·‚éã‚Å•K{‚Å‚Í‚È‚¢
+	/// ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆã®ãƒ“ãƒ¥ãƒ¼ã®æ›´æ–°ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
+	/// ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆå®Ÿè£…ã™ã‚‹ä¸Šã§å¿…é ˆã§ã¯ãªã„
 	/// </summary>
-	[Service]	// AndroidManifest‚É’Ç‹L‚·‚é‘ã‚í‚è‚ÉAttribute‚ğİ’è‚·‚é(xamarin)
+	[IntentFilter(new string[] {"Update_Time"})]
+	[Service]	// AndroidManifestã«è¿½è¨˜ã™ã‚‹ä»£ã‚ã‚Šã«Attributeã‚’è¨­å®šã™ã‚‹(xamarin)
 	class UpdateService : Service
 	{
 
 		public override StartCommandResult OnStartCommand(Intent intent,[GeneratedEnum] StartCommandFlags flags,int startId)
 		{
 
-			RemoteViews updateViews = BuildUpdate();
+			RemoteViews updateViews = BuildUpdate(intent);
 
 			ComponentName widget = new ComponentName(this, Java.Lang.Class.FromType(typeof(AppWidget)).Name);
 			AppWidgetManager manager = AppWidgetManager.GetInstance(this);
 			manager.UpdateAppWidget(widget, updateViews);
 
-			Toast.MakeText(this, "UpdateService:OnstartCommand", ToastLength.Long).Show();
+//			Toast.MakeText(this, "UpdateService:OnstartCommand", ToastLength.Long).Show();
 
-			// ‚Æ‚­‚Éservice‚ğ•¡”‰ñƒXƒ^[ƒg‚³‚¹‚Ä‚È‚¢‚È‚ç‚±‚ê‚Å\•ª‚¾‚Æv‚¤
+			// ã¨ãã«serviceã‚’è¤‡æ•°å›ã‚¹ã‚¿ãƒ¼ãƒˆã•ã›ã¦ãªã„ãªã‚‰ã“ã‚Œã§ååˆ†ã ã¨æ€ã†
 			return StartCommandResult.Sticky;
 		}
 
 		public override IBinder OnBind(Intent intent)
 		{
-			// ƒoƒCƒ“ƒh‚³‚ê‚½‚­‚È‚¢ê‡‚Ínull‚ğ•Ô‚·
+			// ãƒã‚¤ãƒ³ãƒ‰ã•ã‚ŒãŸããªã„å ´åˆã¯nullã‚’è¿”ã™
 			return null;
 		}
 
-		public RemoteViews BuildUpdate()
+		public RemoteViews BuildUpdate(Intent intent)
 		{
 			RemoteViews updateViews = new RemoteViews(this.PackageName, Resource.Layout.widget_app_layout2);
 
 			System.DateTime time = System.DateTime.Now;
-			string text = string.Format("now time : {0}", time);
+			string text = $"{time}";// string.Format("now time : {0}", time);
 			updateViews.SetTextViewText(Resource.Id.Text2, text);
 
-			// ƒ{ƒ^ƒ“ƒNƒŠƒbƒN‚ÅActivity‚Ì‹N“®
+			// ãƒœã‚¿ãƒ³ã‚¯ãƒªãƒƒã‚¯ã§Activityã®èµ·å‹•
 			Intent WidgetIntent = new Intent(this, typeof(MainActivity));
 			PendingIntent appIntent = PendingIntent.GetActivity(this, 0, WidgetIntent, 0);
 			updateViews.SetOnClickPendingIntent(Resource.Id.TestButton2, appIntent);
+			// Intentã«è¨­å®šã•ã‚ŒãŸActionè¦‹ã¦ã¿ã‚‹
+			System.Diagnostics.Debug.WriteLine("WidgetIntent.Action = " + WidgetIntent.Action);
+
+			// æ™‚é–“æ›¸ã„ãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸éƒ¨åˆ†ã®ã‚¯ãƒªãƒƒã‚¯ã§ã‚‚Activityèµ·å‹•ã§ãã‚‹ã‚ˆã†ã«ã—ã¦ã¿ã‚‹
+			updateViews.SetOnClickPendingIntent(Resource.Id.Text2, appIntent);
+
+			// ãƒœã‚¿ãƒ³æŠ¼ã—ãŸã‚‰æ™‚è¨ˆãŒæ›´æ–°ã•ã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹
+			Intent UpdateClockIntent = new Intent();
+			UpdateClockIntent.SetAction("Update_Time");
+			PendingIntent updateTimeIntent = PendingIntent.GetService(this, 0, UpdateClockIntent, 0);
+			updateViews.SetOnClickPendingIntent(Resource.Id.TestButton3, updateTimeIntent); 
+
+			if(!string.IsNullOrEmpty(intent.Action)) {
+				if(intent.Action.Equals("Update_Time")) {
+					time = System.DateTime.Now;
+					text = $"{time}";// string.Format("now time : {0}", time);
+					updateViews.SetTextViewText(Resource.Id.Text2, text);
+//					Toast.MakeText(this, "ClockUpdate.", ToastLength.Short).Show();
+				}
+			}
 
 			return updateViews;
 		}

@@ -88,13 +88,15 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\widget_button_normal.png" />
+    <AndroidResource Include="Resources\drawable\widget_button_normal.9.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\widget_button_pressed.png" />
+    <AndroidResource Include="Resources\drawable\widget_button_pressed.9.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\widget_button.xml" />
+    <AndroidResource Include="Resources\drawable\widget_button.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\styles.xml">
@@ -105,7 +107,9 @@
     <AndroidResource Include="Resources\drawable\widget_button_focused.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\widget_app_layout2.xml" />
+    <AndroidResource Include="Resources\layout\widget_app_layout2.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

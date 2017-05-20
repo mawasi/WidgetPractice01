@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="147dip"
-    android:minHeight="36dip"
-    android:updatePeriodMillis="1800000" />
-<!--ウィジェットに設定できる更新間隔の最短は30分(1800000mill)-->
+    android:minHeight="40dip"
+    android:updatePeriodMillis="1800000"
+	android:resizeMode="horizontal|vertical" />
+<!--
+	ウィジェットに設定できる更新間隔の最短は30分(1800000mill)
+	ここで設定したウィジェットのminWidth,minHeightより、
+	ウィジェット内の各ビューサイズのほうが大きくてもなんか収まる。よくわからない。
+-->

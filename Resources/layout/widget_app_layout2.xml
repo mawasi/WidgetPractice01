@@ -7,12 +7,14 @@
     android:layout_height="wrap_content"
     android:focusable="true">
 <!--　レイアウトがRelativeLayoutの場合、文字サイズを30spにしても
-	ボタンビューなくなったりしなかったけど、LinearLayoutだとTextViewしか表示されなくなる　-->
+	ボタンビューなくなったりしなかったけど、LinearLayoutだとTextViewしか表示されなくなる
+	layout_weightでビューの優先度を下げることでレイアウト調整する -->
 	<TextView
         android:id="@+id/Text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ffff0000" />
+        android:background="#ffff0000"
+		android:layout_weight="1" />
 	<!--
         android:layout_marginTop="14dip"
         android:layout_marginBottom="1dip" 
@@ -22,16 +24,16 @@
 -->
 	<ImageButton
         android:id="@+id/TestButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:src="@drawable/widget_button" />
 <!-- 自動でうまく収めてくれないみたいで、このレイアウトではButtonビューは
 	多分場所が足りないみたいで表示されない -->
 	<Button
         android:id="@+id/TestButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:src="@drawable/widget_button" />
 
