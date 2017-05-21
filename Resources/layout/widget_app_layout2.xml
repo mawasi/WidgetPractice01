@@ -26,15 +26,16 @@
         android:id="@+id/TestButton2"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignParentRight="true"
+		android:scaleType="fitCenter"
+		android:background="@null"
         android:src="@drawable/widget_button" />
-<!-- 自動でうまく収めてくれないみたいで、このレイアウトではButtonビューは
-	多分場所が足りないみたいで表示されない -->
+<!--
+        android:layout_alignParentRight="true"
+-->
 	<Button
         android:id="@+id/TestButton3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignParentRight="true"
         android:src="@drawable/widget_button" />
 
 </LinearLayout>
