@@ -22,6 +22,11 @@ namespace WidgetPractice01
 	class UpdateService : Service
 	{
 
+		public override void OnCreate()
+		{
+			base.OnCreate();
+		}
+
 		public override StartCommandResult OnStartCommand(Intent intent,[GeneratedEnum] StartCommandFlags flags,int startId)
 		{
 
@@ -51,10 +56,17 @@ namespace WidgetPractice01
 			string text = $"{time}";// string.Format("now time : {0}", time);
 			updateViews.SetTextViewText(Resource.Id.Text2, text);
 
+			// ウィジェットのUI処理の登録なんかは一度やったら必要なさそうに感じるが、
+			// AppWidgetProvider::OnEnabled()なんかでやろうとすると、ウィジェットを2つ立ち上げると、
+			// OnEnabled()は一番最初に起動したウィジェットでしか呼ばれないので、あとに立ち上げたほうのボタンなんかをクリックしても反応しなくなる。
+			// Update処理(要はここ)で通すようにしたほうがいいのかも。
+#if true
 			// ボタンクリックでActivityの起動
 			Intent WidgetIntent = new Intent(this, typeof(MainActivity));
 			PendingIntent appIntent = PendingIntent.GetActivity(this, 0, WidgetIntent, 0);
 			updateViews.SetOnClickPendingIntent(Resource.Id.TestButton2, appIntent);
+			// これでボタンのイメージ変えることもできる
+//			updateViews.SetImageViewResource(Resource.Id.TestButton2, Resource.Drawable.widget_button_focused);
 			// Intentに設定されたAction見てみる
 			System.Diagnostics.Debug.WriteLine("WidgetIntent.Action = " + WidgetIntent.Action);
 
@@ -63,11 +75,12 @@ namespace WidgetPractice01
 
 			// ボタン押したら時計が更新されるようにする
 			Intent UpdateClockIntent = new Intent();
+			// ボタンを押したときにこのIntentがブロードキャストされて、それをこのクラスが直接受け取り、OnStartCommandが呼ばれる。
 			UpdateClockIntent.SetAction("Update_Time");
-			PendingIntent updateTimeIntent = PendingIntent.GetService(this, 0, UpdateClockIntent, 0);
+			PendingIntent updateTimeIntent = PendingIntent.GetService(this, 0, UpdateClockIntent, 0);	// サービスクラスへ投げるインテント作成
 			updateViews.SetOnClickPendingIntent(Resource.Id.TestButton3, updateTimeIntent); 
-
-			if(!string.IsNullOrEmpty(intent.Action)) {
+#endif
+			if (!string.IsNullOrEmpty(intent.Action)) {
 				if(intent.Action.Equals("Update_Time")) {
 					time = System.DateTime.Now;
 					text = $"{time}";// string.Format("now time : {0}", time);

@@ -5,7 +5,12 @@
 	android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+	android:background="@drawable/widget_background_shape"
     android:focusable="true">
+<!--
+	android:background="#2f333333"
+-->
+
 <!--　レイアウトがRelativeLayoutの場合、文字サイズを30spにしても
 	ボタンビューなくなったりしなかったけど、LinearLayoutだとTextViewしか表示されなくなる
 	layout_weightでビューの優先度を下げることでレイアウト調整する -->
@@ -36,6 +41,10 @@
         android:id="@+id/TestButton3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/widget_button" />
+        android:background="@drawable/widget_button" />
+<!--
+Buttonタグでも android:background にボタンの色などを定義したxmlを指定すれば
+画像ファイル扱えるみたい。
+-->
 
 </LinearLayout>
